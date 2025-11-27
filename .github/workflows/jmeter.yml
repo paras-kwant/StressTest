@@ -2,7 +2,7 @@ name: JMeter Scheduled Run
 
 on:
   schedule:
-    - cron: "*/20 * * * *"  # every 20 minutes
+    - cron: "*/20 * * * *"   # every 20 min
   workflow_dispatch:
 
 jobs:
@@ -21,25 +21,32 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 3. Install Maven
-      - name: Install Maven
-        run: sudo apt-get update && sudo apt-get install -y maven
-
-      # 4. Clone JMeter source and build
-      - name: Clone and build JMeter
+      # 3. Install JMeter stable version (instead of nightly)
+      - name: Install JMeter
         run: |
-          git clone https://github.com/apache/jmeter.git
-          cd jmeter
-          mvn -q clean package -DskipTests
-          export PATH=$PWD/bin:$PATH
-          cd ..
+          JMETER_VERSION=5.6.3
+          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz -O jmeter.tgz
+          tar -xzf jmeter.tgz
+          mv apache-jmeter-${JMETER_VERSION} apache-jmeter
+          export PATH=$PWD/apache-jmeter/bin:$PATH
+
+      # 4. Verify JMX file exists
+      - name: Verify JMX file
+        run: |
+          if [ ! -f tests/load_test_kwant.jmx ]; then
+            echo "Error: tests/load_test_kwant.jmx not found!"
+            echo "Contents of tests directory:"
+            ls -la tests/ || echo "tests directory does not exist"
+            exit 1
+          fi
+          echo "JMX file found successfully"
 
       # 5. Run JMeter CLI
       - name: Run JMeter CLI
         run: |
           TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
           mkdir -p jmeter-logs
-          ./jmeter/bin/jmeter -n \
+          ./apache-jmeter/bin/jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l jmeter-logs/results_$TIMESTAMP.jtl \
             -e -o jmeter-logs/report_$TIMESTAMP \
@@ -48,15 +55,19 @@ jobs:
 
       # 6. Cleanup old logs (keep last 20)
       - name: Cleanup old logs
+        if: always()
         run: |
           cd jmeter-logs
-          ls -tp | grep -v '/$' | tail -n +21 | xargs -I {} rm -- {}
+          # Keep only the 20 most recent files
+          ls -t | tail -n +21 | xargs -r rm -rf --
 
       # 7. Upload logs & reports
       - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: jmeter-logs-and-reports
+          name: jmeter-logs-and-reports-${{ github.run_number }}
           path: |
             jmeter-logs/*.jtl
             jmeter-logs/report_*/
+          retention-days: 30
