@@ -47,9 +47,12 @@ jobs:
           cd jmeter-logs
           ls -tp | grep -v '/$' | tail -n +21 | xargs -I {} rm -- {}
 
-      # 6. Upload logs & reports as artifacts
+            # 6. Upload logs & reports as artifacts
       - name: Upload logs & reports
         uses: actions/upload-artifact@v4
         with:
-          name: jmeter-logs
-          path: jmeter-logs/
+          name: jmeter-logs-and-reports
+          path: |
+            jmeter-logs/*.jtl
+            jmeter-logs/report_*/
+
