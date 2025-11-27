@@ -21,25 +21,25 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 3. Install JMeter
+      # 3. Install JMeter 5.7.2
       - name: Install JMeter
         run: |
-          wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
-          tar -xzf apache-jmeter-5.6.3.tgz
-          export PATH=$PWD/apache-jmeter-5.6.3/bin:$PATH
+          wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.7.2.tgz
+          tar -xzf apache-jmeter-5.7.2.tgz
+          export PATH=$PWD/apache-jmeter-5.7.2/bin:$PATH
 
       # 4. Run JMeter CLI
       - name: Run JMeter CLI
         run: |
           TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
           mkdir -p jmeter-logs
-          ./apache-jmeter-5.6.3/bin/jmeter -n \
+          export PATH=$PWD/apache-jmeter-5.7.2/bin:$PATH
+          ./apache-jmeter-5.7.2/bin/jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l jmeter-logs/results_$TIMESTAMP.jtl \
             -e -o jmeter-logs/report_$TIMESTAMP \
-           -Jemail=${{ secrets.JMETER_EMAIL }} \
-           -Jpassword=${{ secrets.JMETER_PASSWORD }}
-
+            -Jemail=${{ secrets.JMETER_EMAIL }} \
+            -Jpassword=${{ secrets.JMETER_PASSWORD }}
 
       # 5. Cleanup old logs (keep last 20)
       - name: Cleanup old logs
@@ -47,7 +47,7 @@ jobs:
           cd jmeter-logs
           ls -tp | grep -v '/$' | tail -n +21 | xargs -I {} rm -- {}
 
-            # 6. Upload logs & reports as artifacts
+      # 6. Upload logs & reports as artifacts
       - name: Upload logs & reports
         uses: actions/upload-artifact@v4
         with:
@@ -55,4 +55,3 @@ jobs:
           path: |
             jmeter-logs/*.jtl
             jmeter-logs/report_*/
-
