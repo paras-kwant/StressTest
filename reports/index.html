@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JMeter Test Reports</title>
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      max-width: 1400px; 
+      margin: 0 auto; 
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    h1 { 
+      color: #333; 
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      background: white;
+    }
+    th, td { 
+      padding: 15px; 
+      text-align: left; 
+      border-bottom: 1px solid #e0e0e0; 
+    }
+    th { 
+      background-color: #667eea; 
+      color: white; 
+      font-weight: 600;
+    }
+    tr:hover { background-color: #f8f9fa; }
+    .passed { 
+      color: #28a745; 
+      font-weight: bold; 
+    }
+    .failed { 
+      color: #dc3545; 
+      font-weight: bold; 
+    }
+    .btn { 
+      background-color: #667eea;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    .btn:hover { 
+      background-color: #5568d3;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .stat-label {
+      opacity: 0.9;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 JMeter Load Test Reports</h1>
+    <p class="subtitle">Automated stress testing results</p>
+    
+    <div class="stats" id="stats"></div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Run Date</th>
+          <th>Status</th>
+          <th>Total Requests</th>
+          <th>Success Rate</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="reportsList">
+        <tr><td colspan="5">Loading reports...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    async function loadReports() {
+      try {
+        const files = await fetch('.')
+          .then(r => r.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            return Array.from(doc.querySelectorAll('a'))
+              .map(a => a.href)
+              .filter(href => href.includes('run_') && href.endsWith('.json'));
+          });
+        
+        const reports = [];
+        for (const file of files.slice(0, 15)) {
+          const data = await fetch(file).then(r => r.json());
+          reports.push(data);
+        }
+        
+        reports.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+        
+        // Calculate stats
+        const totalRuns = reports.length;
+        const passedRuns = reports.filter(r => r.status.includes('PASSED')).length;
+        const avgSuccess = reports.reduce((sum, r) => sum + parseFloat(r.success_rate), 0) / totalRuns;
+        
+        document.getElementById('stats').innerHTML = `
+          <div class="stat-card">
+            <div class="stat-label">Total Runs</div>
+            <div class="stat-value">${totalRuns}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Passed</div>
+            <div class="stat-value">${passedRuns}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Success Rate</div>
+            <div class="stat-value">${avgSuccess.toFixed(1)}%</div>
+          </div>
+        `;
+        
+        const tbody = document.getElementById('reportsList');
+        tbody.innerHTML = reports.map(report => `
+          <tr>
+            <td>${report.date}</td>
+            <td class="${report.status.includes('PASSED') ? 'passed' : 'failed'}">${report.status}</td>
+            <td>${report.total}</td>
+            <td>${report.success_rate}%</td>
+            <td>
+              <a href="report_${report.timestamp}/index.html" class="btn" target="_blank">
+                📊 View Report
+              </a>
+            </td>
+          </tr>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading reports:', error);
+        document.getElementById('reportsList').innerHTML = 
+          '<tr><td colspan="5">Error loading reports. Check console.</td></tr>';
+      }
+    }
+    
+    loadReports();
+  </script>
+</body>
+</html>
