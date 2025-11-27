@@ -2,223 +2,86 @@ name: JMeter Scheduled Run
 
 on:
   schedule:
-    - cron: "*/20 * * * *"  # every 20 min
+    - cron: "*/20 * * * *"   # every 20 min
   workflow_dispatch:
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
 
 jobs:
   jmeter-run:
     runs-on: ubuntu-latest
 
     steps:
-      # -----------------------------
-      # Checkout Repository
-      # -----------------------------
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      # 1. Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      # -----------------------------
-      # Setup Java
-      # -----------------------------
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
+      # 2. Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 17
+          distribution: 'temurin'
+          java-version: '17'
 
-      # -----------------------------
-      # Install JMeter
-      # -----------------------------
+      # 3. Cache JMeter installation
+      - name: Cache JMeter
+        id: cache-jmeter
+        uses: actions/cache@v3
+        with:
+          path: apache-jmeter
+          key: jmeter-5.6.3
+          restore-keys: |
+            jmeter-
+
+      # 4. Install JMeter (only if not cached)
       - name: Install JMeter
+        if: steps.cache-jmeter.outputs.cache-hit != 'true'
         run: |
-          VERSION=5.6.3
-          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$VERSION.tgz
-          tar -xzf apache-jmeter-$VERSION.tgz
-          mv apache-jmeter-$VERSION jmeter
+          JMETER_VERSION=5.6.3
+          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz -O jmeter.tgz
+          tar -xzf jmeter.tgz
+          mv apache-jmeter-${JMETER_VERSION} apache-jmeter
 
-      # -----------------------------
-      # Validate Test File Exists
-      # -----------------------------
-      - name: Verify Test File
+      # 5. Add JMeter to PATH
+      - name: Add JMeter to PATH
+        run: echo "$PWD/apache-jmeter/bin" >> $GITHUB_PATH
+
+      # 6. Verify JMX file exists
+      - name: Verify JMX file
         run: |
           if [ ! -f tests/load_test_kwant.jmx ]; then
-            echo "❌ tests/load_test_kwant.jmx missing"
+            echo "Error: tests/load_test_kwant.jmx not found!"
+            echo "Contents of tests directory:"
+            ls -la tests/ || echo "tests directory does not exist"
             exit 1
           fi
+          echo "JMX file found successfully"
 
-      # -----------------------------
-      # Run JMeter Test
-      # -----------------------------
-      - name: Run JMeter Test
-        id: run
+      # 7. Run JMeter CLI
+      - name: Run JMeter CLI
         run: |
-          TS=$(date +%Y%m%d_%H%M%S)
-          DATE=$(date +"%Y-%m-%d %H:%M:%S")
-
-          mkdir -p reports
-
-          ./jmeter/bin/jmeter -n \
+          TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+          mkdir -p jmeter-logs
+          jmeter -n \
             -t tests/load_test_kwant.jmx \
-            -l reports/results_$TS.jtl \
-            -e -o reports/report_$TS \
+            -l jmeter-logs/results_$TIMESTAMP.jtl \
+            -e -o jmeter-logs/report_$TIMESTAMP \
             -Jemail=${{ secrets.JMETER_EMAIL }} \
-            -Jpassword=${{ secrets.JMETER_PASSWORD }} || true
+            -Jpassword=${{ secrets.JMETER_PASSWORD }}
 
-          echo "TS=$TS" >> $GITHUB_OUTPUT
-          echo "DATE=$DATE" >> $GITHUB_OUTPUT
-
-      # -----------------------------
-      # Parse JMeter Summary
-      # -----------------------------
-      - name: Parse Test Summary
+      # 8. Cleanup old logs (keep last 20)
+      - name: Cleanup old logs
+        if: always()
         run: |
-          TS=${{ steps.run.outputs.TS }}
-          JTL="reports/results_$TS.jtl"
+          cd jmeter-logs
+          # Keep only the 20 most recent files
+          ls -t | tail -n +21 | xargs -r rm -rf --
 
-          TOTAL=$(grep -c "<httpSample" $JTL || echo 0)
-          SUCCESS=$(grep -c 'success="true"' $JTL || echo 0)
-          FAILED=$(grep -c 'success="false"' $JTL || echo 0)
-
-          if [ "$TOTAL" -gt 0 ]; then
-            RATE=$(awk "BEGIN{printf \"%.2f\", ($SUCCESS/$TOTAL)*100}")
-          else
-            RATE=0
-          fi
-
-          STATUS="PASSED"
-          if [ "$FAILED" -gt 0 ]; then
-            STATUS="FAILED"
-          fi
-
-          cat > reports/run_$TS.json <<EOF
-          {
-            "timestamp": "$TS",
-            "date": "${{ steps.run.outputs.DATE }}",
-            "status": "$STATUS",
-            "total": $TOTAL,
-            "success_rate": $RATE
-          }
-          EOF
-
-      # -----------------------------
-      # Switch to gh-pages branch
-      # -----------------------------
-      - name: Switch to gh-pages Branch
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
-          git fetch origin gh-pages || true
-          git checkout gh-pages || git checkout --orphan gh-pages
-
-          rm -rf *
-          git checkout main -- reports
-
-      # -----------------------------
-      # Keep Only Last 15 Reports
-      # -----------------------------
-      - name: Cleanup Old Reports
-        run: |
-          cd reports
-          ls -d report_* | sort -r | tail -n +16 | xargs -r rm -rf
-          ls results_* | sort -r | tail -n +16 | xargs -r rm -f
-          ls run_* | sort -r | tail -n +16 | xargs -r rm -f
-
-      # -----------------------------
-      # Build Dynamic HTML Index
-      # -----------------------------
-      - name: Build HTML Index
-        run: |
-          cd reports
-          cat > index.html <<'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-          <title>JMeter Reports</title>
-          <style>
-            body { background:#f5f5f5; font-family:Arial; padding:20px; }
-            table { width:100%; background:#fff; border-collapse:collapse; }
-            th, td { padding:10px; border-bottom:1px solid #ddd; }
-            th { background:#333; color:#fff; }
-            .passed { color:green; font-weight:bold; }
-            .failed { color:red; font-weight:bold; }
-            .btn { background:#333; color:#fff; padding:5px 10px; border-radius:5px; text-decoration:none; }
-          </style>
-          </head>
-          <body>
-          <h1>JMeter Load Test History</h1>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Total</th>
-                <th>Success %</th>
-                <th>Report</th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
-              <tr><td>Loading...</td></tr>
-            </tbody>
-          </table>
-
-          <script>
-          async function load() {
-            let files = await fetch('.').then(r => r.text());
-            let dom = new DOMParser().parseFromString(files, 'text/html');
-            
-            let list = [...dom.querySelectorAll('a')]
-              .filter(a => a.href.includes('run_') && a.href.endsWith('.json'));
-
-            let rows = [];
-
-            for (let f of list) {
-              let j = await fetch(f).then(r => r.json());
-              rows.push(j);
-            }
-
-            rows.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-
-            document.getElementById('tbody').innerHTML =
-              rows.map(r => `
-                <tr>
-                  <td>${r.date}</td>
-                  <td class="${r.status === "PASSED" ? "passed" : "failed"}">${r.status}</td>
-                  <td>${r.total}</td>
-                  <td>${r.success_rate}%</td>
-                  <td><a class="btn" target="_blank" href="report_${r.timestamp}/index.html">View</a></td>
-                </tr>
-              `).join('');
-          }
-          load();
-          </script>
-
-          </body>
-          </html>
-          EOF
-
-      # -----------------------------
-      # Deploy to GitHub Pages
-      # -----------------------------
-      - name: Deploy to GitHub Pages
-        run: |
-          git add .
-          git commit -m "Report update"
-          git push origin gh-pages --force
-
-      # -----------------------------
-      # Upload Artifacts
-      # -----------------------------
-      - name: Upload Reports as Artifact
+      # 9. Upload logs & reports
+      - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: jmeter-${{ steps.run.outputs.TS }}
-          path: reports/
+          name: jmeter-logs-and-reports-${{ github.run_number }}
+          path: |
+            jmeter-logs/*.jtl
+            jmeter-logs/report_*/
           retention-days: 30
