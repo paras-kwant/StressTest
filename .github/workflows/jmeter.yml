@@ -1,0 +1,45 @@
+name: JMeter Scheduled Run
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"  # every 20 minutes
+  workflow_dispatch:
+
+jobs:
+  jmeter-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      run: sudo apt-get update && sudo apt-get install -y openjdk-17-jdk wget tar
+
+    - name: Install JMeter
+      run: |
+        wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.7.2.tgz
+        tar -xzf apache-jmeter-5.7.2.tgz
+        export PATH=$PWD/apache-jmeter-5.7.2/bin:$PATH
+
+    - name: Run JMeter CLI
+      run: |
+        TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+        mkdir -p jmeter-logs
+        jmeter -n \
+          -t tests/load_test_kwant.jmx \
+          -l jmeter-logs/results_$TIMESTAMP.jtl \
+          -e -o jmeter-logs/report_$TIMESTAMP \
+          -Jemail=${{ secrets.JMETER_EMAIL }} \
+          -Jpassword=${{ secrets.JMETER_PASSWORD }}
+
+    - name: Cleanup old logs (keep last 20)
+      run: |
+        cd jmeter-logs
+        ls -tp | grep -v '/$' | tail -n +21 | xargs -I {} rm -- {}
+
+    - name: Upload logs & reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: jmeter-logs
+        path: jmeter-logs/
