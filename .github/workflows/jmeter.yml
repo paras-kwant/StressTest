@@ -33,12 +33,13 @@ jobs:
         run: |
           TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
           mkdir -p jmeter-logs
-          ./apache-jmeter-5.7.2/bin/jmeter -n \
+          ./apache-jmeter-5.6.3/bin/jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l jmeter-logs/results_$TIMESTAMP.jtl \
             -e -o jmeter-logs/report_$TIMESTAMP \
-            -Jemail=${{ secrets.JMETER_EMAIL }} \
-            -Jpassword=${{ secrets.JMETER_PASSWORD }}
+           -Jemail=${{ secrets.JMETER_EMAIL }} \
+           -Jpassword=${{ secrets.JMETER_PASSWORD }}
+
 
       # 5. Cleanup old logs (keep last 20)
       - name: Cleanup old logs
