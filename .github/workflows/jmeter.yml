@@ -2,7 +2,7 @@ name: JMeter Scheduled Run
 
 on:
   schedule:
-    - cron: "*/20 * * * *"   # every 20 min
+    - cron: "*/20 * * * *"  # every 20 minutes
   workflow_dispatch:
 
 jobs:
@@ -21,32 +21,38 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 3. Install JMeter nightly (latest)
-      - name: Install Latest JMeter
-        run: |
-          wget https://downloads.apache.org/jmeter/nightlies/latest/apache-jmeter-nightly.tgz -O jmeter.tgz
-          tar -xzf jmeter.tgz
-          export PATH=$PWD/apache-jmeter-*/bin:$PATH
+      # 3. Install Maven
+      - name: Install Maven
+        run: sudo apt-get update && sudo apt-get install -y maven
 
-      # 4. Run JMeter CLI
+      # 4. Clone JMeter source and build
+      - name: Clone and build JMeter
+        run: |
+          git clone https://github.com/apache/jmeter.git
+          cd jmeter
+          mvn -q clean package -DskipTests
+          export PATH=$PWD/bin:$PATH
+          cd ..
+
+      # 5. Run JMeter CLI
       - name: Run JMeter CLI
         run: |
           TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
           mkdir -p jmeter-logs
-          ./apache-jmeter-*/bin/jmeter -n \
+          ./jmeter/bin/jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l jmeter-logs/results_$TIMESTAMP.jtl \
             -e -o jmeter-logs/report_$TIMESTAMP \
             -Jemail=${{ secrets.JMETER_EMAIL }} \
             -Jpassword=${{ secrets.JMETER_PASSWORD }}
 
-      # 5. Cleanup old logs (keep last 20)
+      # 6. Cleanup old logs (keep last 20)
       - name: Cleanup old logs
         run: |
           cd jmeter-logs
           ls -tp | grep -v '/$' | tail -n +21 | xargs -I {} rm -- {}
 
-      # 6. Upload logs & reports
+      # 7. Upload logs & reports
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
