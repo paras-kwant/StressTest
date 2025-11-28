@@ -5,18 +5,19 @@ on:
     - cron: "*/20 * * * *"
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
   jmeter-run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -44,167 +45,70 @@ jobs:
       - name: Add JMeter to PATH
         run: echo "$PWD/apache-jmeter/bin" >> $GITHUB_PATH
 
-      - name: Setup local reports directory
+      - name: Setup reports directory
         run: |
           mkdir -p reports/raw
           mkdir -p reports/html
 
-      - name: Restore existing reports from gh-pages
+      - name: Fetch existing reports from gh-pages
         run: |
-          echo "Fetching gh-pages..."
           git fetch origin gh-pages:gh-pages || echo "No gh-pages branch yet"
-
           if git show-ref --verify --quiet refs/heads/gh-pages; then
-            echo "Restoring previous reports..."
+            echo "Restoring existing reports from gh-pages..."
             git checkout gh-pages
-            mkdir -p ../reports/html
-            cp -r html/* ../reports/html/ 2>/dev/null || echo "No old reports"
-            git checkout -
+            mkdir -p temp_reports
+            cp -r reports/html/* temp_reports/ 2>/dev/null || echo "No existing reports"
+            git checkout main
+            cp -r temp_reports/* reports/html/ 2>/dev/null || echo "Nothing to restore"
+            rm -rf temp_reports
           else
-            echo "First run, gh-pages does not exist"
+            echo "gh-pages branch does not exist yet"
           fi
 
       - name: Run JMeter Test
         run: |
-          TIMESTAMP=$(date +'%Y%m%d%H%M%S')
-          echo "Running JMeter... $TIMESTAMP"
-
+          TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+          echo "Running test at: $TIMESTAMP"
+          mkdir -p reports/html/report_$TIMESTAMP
           jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l reports/raw/results_$TIMESTAMP.jtl \
             -e -o reports/html/report_$TIMESTAMP \
             -Jemail=${{ secrets.JMETER_EMAIL }} \
             -Jpassword=${{ secrets.JMETER_PASSWORD }}
-
           echo $TIMESTAMP > reports/latest_run.txt
           echo "Test completed!"
 
-      - name: Generate Report List JSON
+      - name: Cleanup old reports (keep last 20)
+        run: |
+          cd reports/html
+          ls -dt report_* | tail -n +21 | xargs rm -rf || true
+          cd ../..
+
+      - name: Generate reports.json
         run: |
           cd reports
           echo "[" > reports.json
           first=true
           for dir in html/report_*; do
             if [ -d "$dir" ]; then
-              ts=${dir##*/report_}
-              if [ "$first" = true ]; then first=false; else echo "," >> reports.json; fi
-              echo -n "  {\"path\": \"$dir\", \"timestamp\": \"$ts\"}" >> reports.json
+              timestamp=$(basename "$dir" | sed 's/report_//')
+              if [ "$first" = true ]; then
+                first=false
+              else
+                echo "," >> reports.json
+              fi
+              echo -n "  {\"path\": \"$dir\", \"timestamp\": \"$timestamp\"}" >> reports.json
             fi
           done
           echo "" >> reports.json
           echo "]" >> reports.json
+          cat reports.json
           cd ..
 
       - name: Generate Dashboard
         run: |
-          cat > reports/index.html << 'HTMLEND'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Zone Activity API Monitor</title>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              background: #eef1ff;
-              margin: 0;
-              padding: 20px;
-            }
-            .container {
-              max-width: 1000px;
-              margin: auto;
-              background: white;
-              padding: 20px;
-              border-radius: 10px;
-            }
-            .report-item {
-              background: #f8f9ff;
-              padding: 15px;
-              margin: 10px 0;
-              border-left: 4px solid #667eea;
-              border-radius: 6px;
-            }
-            .view-btn {
-              display: inline-block;
-              margin-top: 10px;
-              padding: 8px 16px;
-              background: #667eea;
-              color: white;
-              text-decoration: none;
-              border-radius: 5px;
-            }
-            .view-btn:hover { background: #4CAF50; }
-          </style>
-          </head>
-          <body>
-          <div class="container">
-            <h1>🎯 Zone Activity API Monitor</h1>
-            <p>GET /api/open/v2/zoneActivity</p>
-            <p>Last updated: <span id="lastUpdate"></span> NPT</p>
-
-            <h2>📋 Last 20 Runs</h2>
-            <div id="reportsList">Loading...</div>
-          </div>
-
-          <script>
-            function toNepalTime(date) {
-              const utc = date.getTime() + date.getTimezoneOffset() * 60000;
-              const nepalTime = new Date(utc + (5.75 * 60 * 60000));
-              return nepalTime.toLocaleString("en-US", {
-                year: "numeric", month: "2-digit", day: "2-digit",
-                hour: "2-digit", minute: "2-digit", second: "2-digit",
-                hour12: true
-              });
-            }
-
-            document.getElementById("lastUpdate").textContent = toNepalTime(new Date());
-
-            fetch("reports.json")
-              .then(res => res.json())
-              .then(data => {
-                const list = document.getElementById("reportsList");
-                if (!data.length) {
-                  list.innerHTML = "No reports yet.";
-                  return;
-                }
-
-                data.sort((a,b)=>b.timestamp.localeCompare(a.timestamp));
-                const latest20 = data.slice(0,20);
-
-                list.innerHTML = "";
-                latest20.forEach((r, i)=>{
-                  const ts = r.timestamp;
-                  const date = new Date(
-                    ts.substring(0,4),
-                    ts.substring(4,6)-1,
-                    ts.substring(6,8),
-                    ts.substring(8,10),
-                    ts.substring(10,12),
-                    ts.substring(12,14)
-                  );
-
-                  list.innerHTML += `
-                    <div class="report-item">
-                      <b>Run #${i+1}</b><br>
-                      📅 ${toNepalTime(date)} NPT<br>
-                      <a class="view-btn" href="${r.path}/index.html" target="_blank">View Report →</a>
-                    </div>`;
-                });
-              });
-          </script>
-          </body>
-          </html>
-          HTMLEND
-
-      - name: Cleanup old reports BEFORE deploy
-        run: |
-          cd reports/html
-          REPORT_COUNT=$(ls -d report_* 2>/dev/null | wc -l)
-          if [ $REPORT_COUNT -gt 20 ]; then
-            ls -dt report_* | tail -n +21 | xargs rm -rf
-          fi
-          cd ../..
+          bash scripts/generate_dashboard.sh
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
