@@ -1,0 +1,73 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1764336882069,1220,login,200,OK,zone activity 1-1,text,true,,1842,256,2,2,https://uat.kwant.ai/api/login%20,1215,0,1124
+1764336882964,324,login,200,OK,zone activity 1-2,text,true,,1842,256,2,2,https://uat.kwant.ai/api/login%20,320,0,229
+1764336883917,96,create api key,200,OK,zone activity 1-2,text,true,,1720,288,3,3,https://uat.kwant.ai/api/apiuser,96,0,0
+1764336883916,134,create api key,503,Service Unavailable,zone activity 1-1,text,false,,1569,288,3,3,https://uat.kwant.ai/api/apiuser,134,0,0
+1764336884052,90,zone activity,503,Service Unavailable,zone activity 1-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[503]]]
+
+****** comparison: [[[200]]]
+
+/",1569,221,3,3,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,90,0,0
+1764336884027,146,zone activity,200,OK,zone activity 1-2,text,true,,15976,333,2,2,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,146,0,0
+1764336883963,242,login,503,Service Unavailable,zone activity 1-3,text,false,,1569,256,1,1,https://uat.kwant.ai/api/login%20,242,0,150
+1764336884207,145,create api key,503,Service Unavailable,zone activity 1-3,text,false,,1569,236,1,1,https://uat.kwant.ai/api/apiuser,145,0,0
+1764336884354,73,zone activity,500,Internal Server Error,zone activity 1-3,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,73,0,0
+1764336884963,229,login,200,OK,zone activity 1-4,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,229,0,145
+1764336885194,124,create api key,503,Service Unavailable,zone activity 1-4,text,false,,1569,288,1,1,https://uat.kwant.ai/api/apiuser,124,0,0
+1764336885319,74,zone activity,500,Internal Server Error,zone activity 1-4,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,74,0,0
+1764336885964,227,login,503,Service Unavailable,zone activity 1-5,text,false,,1569,256,1,1,https://uat.kwant.ai/api/login%20,227,0,144
+1764336886192,77,create api key,500,Internal Server Error,zone activity 1-5,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,77,0,0
+1764336886271,73,zone activity,500,Internal Server Error,zone activity 1-5,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,73,0,0
+1764336886964,232,login,503,Service Unavailable,zone activity 1-6,text,false,,1569,256,1,1,https://uat.kwant.ai/api/login%20,231,0,137
+1764336887197,71,create api key,500,Internal Server Error,zone activity 1-6,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,71,0,0
+1764336887270,70,zone activity,500,Internal Server Error,zone activity 1-6,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,70,0,0
+1764336887964,259,login,503,Service Unavailable,zone activity 1-7,text,false,,1569,256,1,1,https://uat.kwant.ai/api/login%20,259,0,141
+1764336888224,122,create api key,503,Service Unavailable,zone activity 1-7,text,false,,1569,236,1,1,https://uat.kwant.ai/api/apiuser,122,0,0
+1764336888348,74,zone activity,500,Internal Server Error,zone activity 1-7,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,73,0,0
+1764336888963,219,login,200,OK,zone activity 1-8,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,219,0,139
+1764336889184,94,create api key,503,Service Unavailable,zone activity 1-8,text,false,,1569,288,1,1,https://uat.kwant.ai/api/apiuser,94,0,0
+1764336889280,123,zone activity,503,Service Unavailable,zone activity 1-8,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[503]]]
+
+****** comparison: [[[200]]]
+
+/",1569,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,123,0,0
+1764336889964,224,login,200,OK,zone activity 1-9,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,223,0,141
+1764336890189,75,create api key,200,OK,zone activity 1-9,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,75,0,0
+1764336890266,144,zone activity,200,OK,zone activity 1-9,text,true,,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,144,0,0
+1764336890964,216,login,200,OK,zone activity 1-10,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,216,0,136
+1764336891181,549,create api key,200,OK,zone activity 1-10,text,true,,1721,288,1,1,https://uat.kwant.ai/api/apiuser,549,0,0
+1764336891731,287,zone activity,200,OK,zone activity 1-10,text,true,,15992,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,222,0,0
