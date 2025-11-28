@@ -111,7 +111,7 @@
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="zone activity" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="zone activity">
           <stringProp name="HTTPSampler.domain">uat.kwant.ai</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/api/open/v2/zoneActivity</stringProp>
@@ -324,6 +324,10 @@
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
+        <hashTree/>
+        <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion">
+          <stringProp name="DurationAssertion.duration">3000</stringProp>
+        </DurationAssertion>
         <hashTree/>
       </hashTree>
     </hashTree>
