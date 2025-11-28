@@ -1,0 +1,20 @@
+{
+  "timestamp": "'$TIMESTAMP'",
+  "testName": "Zone Activity API",
+  "endpoint": "GET /api/open/v2/zoneActivity",
+  "runNumber": "'64'",
+  "assertions": [
+    {
+      "name": "Response Code",
+      "type": "Response Assertion",
+      "expected": "200 OK",
+      "passed": true
+    },
+    {
+      "name": "Response Time",
+      "type": "Duration Assertion", 
+      "expected": "< 2000ms",
+      "passed": true
+    }
+  ]
+}
