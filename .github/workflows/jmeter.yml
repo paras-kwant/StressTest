@@ -66,15 +66,21 @@ jobs:
           # Create a JSON file with all reports
           cd reports
           echo "[" > reports.json
+          first=true
           for dir in html/report_*; do
             if [ -d "$dir" ]; then
               timestamp=$(basename "$dir" | sed 's/report_//')
-              echo "  {\"path\": \"$dir\", \"timestamp\": \"$timestamp\"}," >> reports.json
+              if [ "$first" = true ]; then
+                first=false
+              else
+                echo "," >> reports.json
+              fi
+              echo -n "  {\"path\": \"$dir\", \"timestamp\": \"$timestamp\"}" >> reports.json
             fi
           done
-          # Remove last comma and close JSON
-          sed -i '$ s/,$//' reports.json
+          echo "" >> reports.json
           echo "]" >> reports.json
+          cat reports.json
           cd ..
 
       - name: Generate Dashboard
@@ -207,7 +213,24 @@ jobs:
             </div>
             
             <script>
-              document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+              // Convert to Nepal Time (UTC+5:45)
+              function toNepalTime(date) {
+                const utcTime = date.getTime() + (date.getTimezoneOffset() * 60000);
+                const nepalOffset = 5.75 * 60 * 60000; // 5:45 hours in milliseconds
+                const nepalTime = new Date(utcTime + nepalOffset);
+                return nepalTime.toLocaleString('en-US', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: true
+                });
+              }
+              
+              const now = new Date();
+              document.getElementById('lastUpdate').textContent = toNepalTime(now) + ' NPT';
               
               // Load reports from JSON file
               fetch('reports.json')
@@ -222,9 +245,11 @@ jobs:
                   
                   reportsList.innerHTML = '';
                   
-                  // Sort by timestamp descending and take last 20
+                  // Sort by timestamp descending (newest first) and take last 20
                   reports.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-                  reports.slice(0, 20).forEach((report, index) => {
+                  const last20 = reports.slice(0, 20);
+                  
+                  last20.forEach((report, index) => {
                     const timestamp = report.timestamp;
                     const year = timestamp.substring(0, 4);
                     const month = timestamp.substring(4, 6);
@@ -238,7 +263,7 @@ jobs:
                     item.className = 'report-item';
                     item.innerHTML = 
                       '<div class="run-number">✓ Run #' + (index + 1) + ' - Zone Activity API</div>' +
-                      '<div class="timestamp">📅 ' + date.toLocaleString() + '</div>' +
+                      '<div class="timestamp">📅 ' + toNepalTime(date) + ' NPT</div>' +
                       '<div class="assertions"><strong>Assertions:</strong>' +
                       '<div class="assertion"><span class="icon">✓</span><span>Response Code = 200 OK</span></div>' +
                       '<div class="assertion"><span class="icon">✓</span><span>Response Time < 2000ms</span></div>' +
@@ -249,7 +274,7 @@ jobs:
                 })
                 .catch(err => {
                   console.error('Error loading reports:', err);
-                  document.getElementById('reportsList').innerHTML = '<p style="color: #666;">Reports will appear after first run.</p>';
+                  document.getElementById('reportsList').innerHTML = '<p style="color: #666;">Error loading reports. Check console for details.</p>';
                 });
             </script>
           </body>
