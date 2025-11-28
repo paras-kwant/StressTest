@@ -61,6 +61,22 @@ jobs:
           echo $TIMESTAMP > reports/latest_run.txt
           echo "Test completed!"
 
+      - name: Generate Report List
+        run: |
+          # Create a JSON file with all reports
+          cd reports
+          echo "[" > reports.json
+          for dir in html/report_*; do
+            if [ -d "$dir" ]; then
+              timestamp=$(basename "$dir" | sed 's/report_//')
+              echo "  {\"path\": \"$dir\", \"timestamp\": \"$timestamp\"}," >> reports.json
+            fi
+          done
+          # Remove last comma and close JSON
+          sed -i '$ s/,$//' reports.json
+          echo "]" >> reports.json
+          cd ..
+
       - name: Generate Dashboard
         run: |
           cat > reports/index.html << 'HTMLEND'
@@ -193,29 +209,23 @@ jobs:
             <script>
               document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
               
-              fetch('.')
-                .then(response => response.text())
-                .then(html => {
-                  const parser = new DOMParser();
-                  const doc = parser.parseFromString(html, 'text/html');
-                  const links = Array.from(doc.querySelectorAll('a'))
-                    .map(a => a.getAttribute('href'))
-                    .filter(href => href && href.startsWith('html/report_'))
-                    .sort()
-                    .reverse()
-                    .slice(0, 20);
-                  
+              // Load reports from JSON file
+              fetch('reports.json')
+                .then(response => response.json())
+                .then(reports => {
                   const reportsList = document.getElementById('reportsList');
                   
-                  if (links.length === 0) {
+                  if (!reports || reports.length === 0) {
                     reportsList.innerHTML = '<p style="color: #666;">Reports will appear after first run. Trigger manually or wait for scheduled run.</p>';
                     return;
                   }
                   
                   reportsList.innerHTML = '';
                   
-                  links.forEach((reportDir, index) => {
-                    const timestamp = reportDir.replace('html/report_', '').replace('/', '');
+                  // Sort by timestamp descending and take last 20
+                  reports.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+                  reports.slice(0, 20).forEach((report, index) => {
+                    const timestamp = report.timestamp;
                     const year = timestamp.substring(0, 4);
                     const month = timestamp.substring(4, 6);
                     const day = timestamp.substring(6, 8);
@@ -227,17 +237,18 @@ jobs:
                     const item = document.createElement('div');
                     item.className = 'report-item';
                     item.innerHTML = 
-                      '<div class="run-number">✓ Run #' + (links.length - index) + ' - Zone Activity API</div>' +
+                      '<div class="run-number">✓ Run #' + (index + 1) + ' - Zone Activity API</div>' +
                       '<div class="timestamp">📅 ' + date.toLocaleString() + '</div>' +
                       '<div class="assertions"><strong>Assertions:</strong>' +
                       '<div class="assertion"><span class="icon">✓</span><span>Response Code = 200 OK</span></div>' +
                       '<div class="assertion"><span class="icon">✓</span><span>Response Time < 2000ms</span></div>' +
                       '</div>' +
-                      '<a href="' + reportDir + '/index.html" class="view-btn" target="_blank">View Full Report →</a>';
+                      '<a href="' + report.path + '/index.html" class="view-btn" target="_blank">View Full Report →</a>';
                     reportsList.appendChild(item);
                   });
                 })
                 .catch(err => {
+                  console.error('Error loading reports:', err);
                   document.getElementById('reportsList').innerHTML = '<p style="color: #666;">Reports will appear after first run.</p>';
                 });
             </script>
