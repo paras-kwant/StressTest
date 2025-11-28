@@ -1,193 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zone Activity API Monitor</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .header {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      margin-bottom: 30px;
-    }
-    .header h1 { color: #333; font-size: 2.5em; margin-bottom: 10px; }
-    .endpoint {
-      background: #f8f9ff;
-      padding: 15px;
-      border-radius: 8px;
-      border-left: 4px solid #667eea;
-      margin: 15px 0;
-      font-family: monospace;
-    }
-    .method {
-      display: inline-block;
-      padding: 4px 12px;
-      background: #4CAF50;
-      color: white;
-      border-radius: 4px;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-    .badge {
-      display: inline-block;
-      padding: 8px 20px;
-      background: #4CAF50;
-      color: white;
-      border-radius: 20px;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    .reports {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    .reports h2 { color: #333; margin-bottom: 20px; font-size: 1.8em; }
-    .report-item {
-      padding: 20px;
-      margin: 15px 0;
-      border-left: 5px solid #667eea;
-      background: linear-gradient(to right, #f8f9ff, #ffffff);
-      border-radius: 8px;
-      transition: all 0.3s;
-    }
-    .report-item:hover {
-      border-left-color: #4CAF50;
-      transform: translateX(5px);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    .run-number {
-      font-weight: bold;
-      color: #667eea;
-      font-size: 1.2em;
-      margin-bottom: 8px;
-    }
-    .timestamp { color: #666; font-size: 0.9em; margin-bottom: 15px; }
-    .assertions {
-      background: #f0f7ff;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 15px;
-    }
-    .assertion {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 8px 0;
-      font-size: 0.9em;
-    }
-    .assertion .icon { color: #4CAF50; font-size: 1.2em; }
-    .view-btn {
-      display: inline-block;
-      padding: 10px 25px;
-      background: #667eea;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: all 0.3s;
-      margin-top: 10px;
-    }
-    .view-btn:hover {
-      background: #4CAF50;
-      transform: scale(1.05);
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zone Activity API Monitor</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #eef1ff;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .report-item {
+    background: #f8f9ff;
+    padding: 15px;
+    margin: 10px 0;
+    border-left: 4px solid #667eea;
+    border-radius: 6px;
+  }
+  .view-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .view-btn:hover { background: #4CAF50; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>🎯 Zone Activity API Monitor</h1>
-      <div class="endpoint">
-        <span class="method">GET</span>
-        <span>/api/open/v2/zoneActivity</span>
-      </div>
-      <div class="badge">✓ Monitoring Active</div>
-      <p style="margin-top: 15px; color: #999;">Auto-refresh every 20 minutes</p>
-      <p style="margin-top: 5px; color: #999;">Last updated: <span id="lastUpdate"></span></p>
-    </div>
-    
-    <div class="reports">
-      <h2>📋 Test History (Last 20 Runs)</h2>
-      <div id="reportsList">Loading reports...</div>
-    </div>
-  </div>
-  
-  <script>
-    // Convert to Nepal Time (UTC+5:45)
-    function toNepalTime(date) {
-      const utcTime = date.getTime() + (date.getTimezoneOffset() * 60000);
-      const nepalOffset = 5.75 * 60 * 60000; // 5:45 hours in milliseconds
-      const nepalTime = new Date(utcTime + nepalOffset);
-      return nepalTime.toLocaleString('en-US', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
+<div class="container">
+  <h1>🎯 Zone Activity API Monitor</h1>
+  <p>GET /api/open/v2/zoneActivity</p>
+  <p>Last updated: <span id="lastUpdate"></span> NPT</p>
+
+  <h2>📋 Last 20 Runs</h2>
+  <div id="reportsList">Loading...</div>
+</div>
+
+<script>
+  function toNepalTime(date) {
+    const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+    const nepalTime = new Date(utc + (5.75 * 60 * 60000));
+    return nepalTime.toLocaleString("en-US", {
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+      hour12: true
+    });
+  }
+
+  document.getElementById("lastUpdate").textContent = toNepalTime(new Date());
+
+  fetch("reports.json")
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById("reportsList");
+      if (!data.length) {
+        list.innerHTML = "No reports yet.";
+        return;
+      }
+
+      data.sort((a,b)=>b.timestamp.localeCompare(a.timestamp));
+      const latest20 = data.slice(0,20);
+
+      list.innerHTML = "";
+      latest20.forEach((r, i)=>{
+        const ts = r.timestamp;
+        const date = new Date(
+          ts.substring(0,4),
+          ts.substring(4,6)-1,
+          ts.substring(6,8),
+          ts.substring(8,10),
+          ts.substring(10,12),
+          ts.substring(12,14)
+        );
+
+        list.innerHTML += `
+          <div class="report-item">
+            <b>Run #${i+1}</b><br>
+            📅 ${toNepalTime(date)} NPT<br>
+            <a class="view-btn" href="${r.path}/index.html" target="_blank">View Report →</a>
+          </div>`;
       });
-    }
-    
-    const now = new Date();
-    document.getElementById('lastUpdate').textContent = toNepalTime(now) + ' NPT';
-    
-    // Load reports from JSON file
-    fetch('reports.json')
-      .then(response => response.json())
-      .then(reports => {
-        const reportsList = document.getElementById('reportsList');
-        
-        if (!reports || reports.length === 0) {
-          reportsList.innerHTML = '<p style="color: #666;">Reports will appear after first run. Trigger manually or wait for scheduled run.</p>';
-          return;
-        }
-        
-        reportsList.innerHTML = '';
-        
-        // Sort by timestamp descending (newest first) and take last 20
-        reports.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-        const last20 = reports.slice(0, 20);
-        
-        last20.forEach((report, index) => {
-          const timestamp = report.timestamp;
-          const year = timestamp.substring(0, 4);
-          const month = timestamp.substring(4, 6);
-          const day = timestamp.substring(6, 8);
-          const hour = timestamp.substring(9, 11);
-          const minute = timestamp.substring(11, 13);
-          const second = timestamp.substring(13, 15);
-          const date = new Date(year, month - 1, day, hour, minute, second);
-          
-          const item = document.createElement('div');
-          item.className = 'report-item';
-          item.innerHTML = 
-            '<div class="run-number">✓ Run #' + (index + 1) + ' - Zone Activity API</div>' +
-            '<div class="timestamp">📅 ' + toNepalTime(date) + ' NPT</div>' +
-            '<div class="assertions"><strong>Assertions:</strong>' +
-            '<div class="assertion"><span class="icon">✓</span><span>Response Code = 200 OK</span></div>' +
-            '<div class="assertion"><span class="icon">✓</span><span>Response Time < 2000ms</span></div>' +
-            '</div>' +
-            '<a href="' + report.path + '/index.html" class="view-btn" target="_blank">View Full Report →</a>';
-          reportsList.appendChild(item);
-        });
-      })
-      .catch(err => {
-        console.error('Error loading reports:', err);
-        document.getElementById('reportsList').innerHTML = '<p style="color: #666;">Error loading reports. Check console for details.</p>';
-      });
-  </script>
+    });
+</script>
 </body>
 </html>
