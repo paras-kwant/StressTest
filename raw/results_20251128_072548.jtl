@@ -1,0 +1,31 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1764314755590,410,login,200,OK,zone activity 1-2,text,true,,1842,256,2,2,https://uat.kwant.ai/api/login%20,407,0,320
+1764314754680,1319,login,200,OK,zone activity 1-1,text,true,,1842,256,2,2,https://uat.kwant.ai/api/login%20,1316,0,1229
+1764314756563,81,create api key,200,OK,zone activity 1-2,text,true,,1719,288,3,3,https://uat.kwant.ai/api/apiuser,81,0,0
+1764314756562,78,create api key,200,OK,zone activity 1-1,text,true,,1719,288,3,3,https://uat.kwant.ai/api/apiuser,78,0,0
+1764314756655,145,zone activity,200,OK,zone activity 1-1,text,false,"The operation lasted too long: It took 145 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,3,3,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,145,0,0
+1764314756654,155,zone activity,200,OK,zone activity 1-2,text,false,"The operation lasted too long: It took 155 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,2,2,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,155,0,0
+1764314756589,249,login,200,OK,zone activity 1-3,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,249,0,161
+1764314756839,81,create api key,200,OK,zone activity 1-3,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,81,0,0
+1764314756922,155,zone activity,200,OK,zone activity 1-3,text,false,"The operation lasted too long: It took 155 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,154,0,0
+1764314757589,222,login,200,OK,zone activity 1-4,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,222,0,142
+1764314757813,74,create api key,200,OK,zone activity 1-4,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,74,0,0
+1764314757888,143,zone activity,200,OK,zone activity 1-4,text,false,"The operation lasted too long: It took 143 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,143,0,0
+1764314758588,216,login,200,OK,zone activity 1-5,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,216,0,137
+1764314758806,73,create api key,200,OK,zone activity 1-5,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,73,0,0
+1764314758880,138,zone activity,200,OK,zone activity 1-5,text,false,"The operation lasted too long: It took 138 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,138,0,0
+1764314759587,233,login,200,OK,zone activity 1-6,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,233,0,148
+1764314759821,79,create api key,200,OK,zone activity 1-6,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,79,0,0
+1764314759901,159,zone activity,200,OK,zone activity 1-6,text,false,"The operation lasted too long: It took 159 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,159,0,0
+1764314760587,227,login,200,OK,zone activity 1-7,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,227,0,143
+1764314760815,77,create api key,200,OK,zone activity 1-7,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,77,0,0
+1764314760893,147,zone activity,200,OK,zone activity 1-7,text,false,"The operation lasted too long: It took 147 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,146,0,0
+1764314761588,221,login,200,OK,zone activity 1-8,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,220,0,139
+1764314761810,77,create api key,200,OK,zone activity 1-8,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,77,0,0
+1764314761887,144,zone activity,200,OK,zone activity 1-8,text,false,"The operation lasted too long: It took 144 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,144,0,0
+1764314762588,220,login,200,OK,zone activity 1-9,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,220,0,137
+1764314762808,75,create api key,200,OK,zone activity 1-9,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,75,0,0
+1764314762884,142,zone activity,200,OK,zone activity 1-9,text,false,"The operation lasted too long: It took 142 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,141,0,0
+1764314763589,230,login,200,OK,zone activity 1-10,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,230,0,145
+1764314763820,79,create api key,200,OK,zone activity 1-10,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,79,0,0
+1764314763900,150,zone activity,200,OK,zone activity 1-10,text,false,"The operation lasted too long: It took 150 milliseconds, but should not have lasted longer than 20 milliseconds.",15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,150,0,0
