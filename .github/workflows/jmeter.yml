@@ -47,6 +47,27 @@ jobs:
         run: |
           mkdir -p reports/raw
           mkdir -p reports/html
+      
+      - name: Fetch existing reports from gh-pages
+        run: |
+          # Try to fetch existing reports from gh-pages branch
+          git fetch origin gh-pages:gh-pages || echo "No gh-pages branch yet"
+          
+          # Check if gh-pages branch exists
+          if git show-ref --verify --quiet refs/heads/gh-pages; then
+            echo "Fetching existing reports from gh-pages..."
+            git checkout gh-pages
+            
+            # Copy existing reports to current reports directory
+            if [ -d "html" ]; then
+              cp -r html/* reports/html/ 2>/dev/null || echo "No existing reports to copy"
+            fi
+            
+            # Switch back to main branch
+            git checkout -
+          else
+            echo "gh-pages branch doesn't exist yet, this is the first run"
+          fi
 
       - name: Run JMeter Test
         run: |
@@ -281,14 +302,6 @@ jobs:
           </html>
           HTMLEND
 
-      - name: Cleanup old reports
-        run: |
-          cd reports/html
-          REPORT_COUNT=$(ls -d report_* 2>/dev/null | wc -l)
-          if [ $REPORT_COUNT -gt 20 ]; then
-            ls -dt report_* | tail -n +21 | xargs rm -rf
-          fi
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -296,6 +309,23 @@ jobs:
           publish_dir: ./reports
           keep_files: true
           enable_jekyll: false
+
+      - name: Cleanup old reports on gh-pages
+        run: |
+          cd reports/html
+          
+          # Count reports
+          REPORT_COUNT=$(ls -d report_* 2>/dev/null | wc -l)
+          echo "Found $REPORT_COUNT reports"
+          
+          if [ $REPORT_COUNT -gt 20 ]; then
+            echo "Cleaning up old reports (keeping last 20)..."
+            ls -dt report_* | tail -n +21 | xargs rm -rf
+          else
+            echo "No cleanup needed, only $REPORT_COUNT reports"
+          fi
+          
+          cd ../..
 
       - name: Upload artifacts
         if: always()
