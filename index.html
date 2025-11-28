@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zone Activity API - Performance Monitor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    .header {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+    .header h1 { color: #333; font-size: 2.5em; margin-bottom: 10px; }
+    .api-endpoint {
+      background: #f8f9ff;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+    }
+    .method {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #4CAF50;
+      color: white;
+      border-radius: 20px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .report-list {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .report-list h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+    .report-item {
+      padding: 25px;
+      margin: 15px 0;
+      border-left: 5px solid #667eea;
+      background: linear-gradient(to right, #f8f9ff, #ffffff);
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .report-item:hover {
+      border-left-color: #4CAF50;
+      transform: translateX(5px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .run-number {
+      font-weight: bold;
+      color: #667eea;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .timestamp {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+    }
+    .view-button {
+      display: inline-block;
+      padding: 10px 25px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    .view-button:hover {
+      background: #4CAF50;
+      transform: scale(1.05);
+    }
+    .assertions-box {
+      background: #f0f7ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    .assertion-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+      font-size: 0.9em;
+    }
+    .assertion-item .icon {
+      color: #4CAF50;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎯 Zone Activity API - Performance Monitor</h1>
+      <div class="api-endpoint">
+        <span class="method">GET</span>
+        <span>/api/open/v2/zoneActivity</span>
+      </div>
+      <div class="status-badge">✓ Monitoring Active</div>
+      <p style="margin-top: 15px; color: #999;">Auto-refreshing every 20 minutes</p>
+      <p style="margin-top: 5px; color: #999;">Last updated: <span id="lastUpdate"></span></p>
+    </div>
+    
+    <div class="report-list">
+      <h2>📋 Zone Activity Test History (Last 20 Runs)</h2>
+      <div id="reportsList">Loading reports...</div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+    
+    // Fetch all report directories
+    fetch('.')
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const links = Array.from(doc.querySelectorAll('a'))
+          .map(a => a.getAttribute('href'))
+          .filter(href => href && href.startsWith('html/report_'))
+          .sort()
+          .reverse()
+          .slice(0, 20);
+        
+        const reportsList = document.getElementById('reportsList');
+        reportsList.innerHTML = '';
+        
+        links.forEach((reportDir, index) => {
+          const timestamp = reportDir.replace('html/report_', '').replace('/', '');
+          const date = new Date(
+            timestamp.substring(0, 4),
+            timestamp.substring(4, 6) - 1,
+            timestamp.substring(6, 8),
+            timestamp.substring(9, 11),
+            timestamp.substring(11, 13),
+            timestamp.substring(13, 15)
+          );
+          
+          const item = document.createElement('div');
+          item.className = 'report-item';
+          item.innerHTML = `
+            <div class="run-number">✓ Run #${links.length - index} - Zone Activity API</div>
+            <div class="timestamp">📅 ${date.toLocaleString()}</div>
+            <div class="assertions-box">
+              <strong>Assertions Checked:</strong>
+              <div class="assertion-item">
+                <span class="icon">✓</span>
+                <span>Response Code = 200 OK</span>
+              </div>
+              <div class="assertion-item">
+                <span class="icon">✓</span>
+                <span>Response Time < 2000ms</span>
+              </div>
+            </div>
+            <a href="${reportDir}/index.html" class="view-button" target="_blank">View Full JMeter Report →</a>
+          `;
+          reportsList.appendChild(item);
+        });
+      })
+      .catch(err => {
+        document.getElementById('reportsList').innerHTML = 
+          '<p style="color: #666;">Reports will appear after the first test run.</p>';
+      });
+  </script>
+</body>
+</html>
