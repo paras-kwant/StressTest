@@ -116,14 +116,35 @@
     
     .assertion {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
-      margin: 8px 0;
+      margin: 10px 0;
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
       font-size: 0.9em;
     }
     
     .assertion .icon {
       font-size: 1.2em;
+      margin-top: 2px;
+    }
+    
+    .assertion-content {
+      flex: 1;
+    }
+    
+    .assertion-endpoint {
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 4px;
+      font-family: monospace;
+      font-size: 0.95em;
+    }
+    
+    .assertion-message {
+      color: #666;
+      font-size: 0.9em;
     }
     
     .view-btn {
@@ -218,16 +239,28 @@
             .then(res => res.json())
             .then(assertions => {
               const div = document.getElementById(`assertions-${index}`);
+              if (assertions.length === 0) {
+                div.innerHTML += '<p style="color:#999;font-size:0.9em;">No assertions data available</p>';
+                return;
+              }
               assertions.forEach(a => {
                 const icon = a.success ? '✓' : '❌';
                 const color = a.success ? '#4CAF50' : '#FF3B30';
                 div.innerHTML += `
                   <div class="assertion">
                     <span class="icon" style="color:${color}">${icon}</span>
-                    <span>${a.message}</span>
+                    <div class="assertion-content">
+                      <div class="assertion-endpoint">${a.endpoint || 'Unknown Endpoint'}</div>
+                      <div class="assertion-message">${a.message || 'No message'}</div>
+                    </div>
                   </div>
                 `;
               });
+            })
+            .catch(err => {
+              console.error('Error loading assertions:', err);
+              const div = document.getElementById(`assertions-${index}`);
+              div.innerHTML += '<p style="color:#999;font-size:0.9em;">Could not load assertions</p>';
             });
         });
       })
