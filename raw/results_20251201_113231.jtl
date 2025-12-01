@@ -1,0 +1,31 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1764568054684,187,login,200,OK,zone activity 1-2,text,true,,1842,256,2,2,https://uat.kwant.ai/api/login%20,187,0,121
+1764568053767,677,login,200,OK,zone activity 1-1,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,673,0,603
+1764568055017,73,create api key,200,OK,zone activity 1-2,text,true,,1720,288,2,2,https://uat.kwant.ai/api/apiuser,73,0,0
+1764568055016,73,create api key,200,OK,zone activity 1-1,text,true,,1720,288,2,2,https://uat.kwant.ai/api/apiuser,73,0,0
+1764568055107,109,zone activity,200,OK,zone activity 1-2,text,false,Test failed: code expected to contain /400/,15976,333,2,2,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,109,0,0
+1764568055106,110,zone activity,200,OK,zone activity 1-1,text,false,Test failed: code expected to contain /400/,15976,333,2,2,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,110,0,0
+1764568055684,169,login,200,OK,zone activity 1-3,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,169,0,105
+1764568055854,58,create api key,200,OK,zone activity 1-3,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,58,0,0
+1764568055913,107,zone activity,200,OK,zone activity 1-3,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,107,0,0
+1764568056683,167,login,200,OK,zone activity 1-4,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,167,0,104
+1764568056851,57,create api key,200,OK,zone activity 1-4,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,57,0,0
+1764568056909,106,zone activity,200,OK,zone activity 1-4,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,106,0,0
+1764568057686,178,login,200,OK,zone activity 1-5,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,178,0,105
+1764568057865,58,create api key,200,OK,zone activity 1-5,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,58,0,0
+1764568057924,108,zone activity,200,OK,zone activity 1-5,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,108,0,0
+1764568058686,161,login,200,OK,zone activity 1-6,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,161,0,98
+1764568058849,55,create api key,200,OK,zone activity 1-6,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,55,0,0
+1764568058905,105,zone activity,200,OK,zone activity 1-6,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,105,0,0
+1764568059685,159,login,200,OK,zone activity 1-7,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,159,0,97
+1764568059846,54,create api key,200,OK,zone activity 1-7,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,54,0,0
+1764568059901,99,zone activity,200,OK,zone activity 1-7,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,98,0,0
+1764568060684,168,login,200,OK,zone activity 1-8,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,168,0,104
+1764568060854,58,create api key,200,OK,zone activity 1-8,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,58,0,0
+1764568060913,107,zone activity,200,OK,zone activity 1-8,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,107,0,0
+1764568061684,152,login,200,OK,zone activity 1-9,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,151,0,92
+1764568061837,52,create api key,200,OK,zone activity 1-9,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,52,0,0
+1764568061890,95,zone activity,200,OK,zone activity 1-9,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,95,0,0
+1764568062684,151,login,200,OK,zone activity 1-10,text,true,,1842,256,1,1,https://uat.kwant.ai/api/login%20,151,0,91
+1764568062836,52,create api key,200,OK,zone activity 1-10,text,true,,1719,288,1,1,https://uat.kwant.ai/api/apiuser,51,0,0
+1764568062889,94,zone activity,200,OK,zone activity 1-10,text,false,Test failed: code expected to contain /400/,15976,333,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,94,0,0
