@@ -64,18 +64,26 @@ jobs:
 
       - name: Run JMeter Test
         run: |
-          # Use Nepal Time directly
           export TZ="Asia/Kathmandu"
           TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
           echo "Running test at Nepal Time: $TIMESTAMP"
           
+          # Run JMeter with forced exit on assertion failure
           jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l reports/raw/results_$TIMESTAMP.jtl \
             -e -o reports/html/report_$TIMESTAMP \
             -Jemail=${{ secrets.JMETER_EMAIL }} \
-            -Jpassword=${{ secrets.JMETER_PASSWORD }}
+            -Jpassword=${{ secrets.JMETER_PASSWORD }} \
+            -Jjmeterengine.force.system.exit=true
           
+          # Fail workflow if any assertions failed
+          FAIL_COUNT=$(grep -c "<failure>true</failure>" reports/raw/results_$TIMESTAMP.jtl || echo 0)
+          if [ "$FAIL_COUNT" -gt 0 ]; then
+            echo "❌ $FAIL_COUNT assertions failed"
+            exit 1
+          fi
+
           echo $TIMESTAMP > reports/latest_run.txt
           echo "Test completed!"
 
@@ -162,7 +170,6 @@ jobs:
                     reportsList.innerHTML='<p style="color:#666;">Reports will appear after first run.</p>';
                     return;
                   }
-                  // Sort numeric timestamps descending (newest first)
                   reports.sort((a,b)=>parseInt(b.timestamp.replace(/_/g,'')) - parseInt(a.timestamp.replace(/_/g,'')));
                   const last20 = reports.slice(0,20);
                   last20.forEach((report,index)=>{
