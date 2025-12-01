@@ -111,27 +111,61 @@ jobs:
           ASSERTIONS_FILE=reports/html/report_$TIMESTAMP/assertions.json
           mkdir -p reports/html/report_$TIMESTAMP
           
-          echo "[" > $ASSERTIONS_FILE
-          awk '
-            /<sample label="([^"]*)"/ { 
-              match($0, /label="([^"]*)"/, arr)
-              label = arr[1]
-              success=1
-              message=""
-            }
-            /<failure>true/ { success=0 }
-            /<failureMessage>/ { 
-              getline
-              message=$0
-              gsub(/<\/?failureMessage>/, "", message)
-              gsub(/^[ \t]+|[ \t]+$/, "", message)
-            }
-            /<\/sample>/ { 
-              if (message == "") message = "All assertions passed"
-              printf "{\"success\":%s,\"endpoint\":\"%s\",\"message\":\"%s\"},\n", success, label, message
-            }
-          ' $JTL_FILE | sed '$ s/,$//' >> $ASSERTIONS_FILE
-          echo "]" >> $ASSERTIONS_FILE
+          cat > parse_jtl.py << 'PYEOF'
+          import xml.etree.ElementTree as ET
+          import json
+          import sys
+          
+          try:
+              tree = ET.parse(sys.argv[1])
+              root = tree.getroot()
+              
+              assertions = []
+              
+              for sample in root.findall('.//httpSample') + root.findall('.//sample'):
+                  label = sample.get('lb', 'Unknown Request')
+                  success = sample.get('s', 'true') == 'true'
+                  
+                  assertion_results = sample.findall('.//assertionResult')
+                  
+                  if assertion_results:
+                      for assertion in assertion_results:
+                          assertion_name = assertion.find('name')
+                          failure = assertion.find('failure')
+                          failure_message = assertion.find('failureMessage')
+                          
+                          is_failure = failure is not None and failure.text == 'true'
+                          
+                          message = "Assertion passed"
+                          if is_failure and failure_message is not None and failure_message.text:
+                              message = failure_message.text.strip()
+                          elif assertion_name is not None and assertion_name.text:
+                              message = assertion_name.text.strip()
+                          
+                          assertions.append({
+                              'success': not is_failure,
+                              'endpoint': label,
+                              'message': message
+                          })
+                  else:
+                      assertions.append({
+                          'success': success,
+                          'endpoint': label,
+                          'message': 'Request completed successfully' if success else 'Request failed'
+                      })
+              
+              print(json.dumps(assertions, indent=2))
+              
+          except Exception as e:
+              print(f"Error parsing JTL: {e}", file=sys.stderr)
+              print("[]")
+          PYEOF
+          
+          python3 parse_jtl.py "$JTL_FILE" > "$ASSERTIONS_FILE"
+          
+          if [ ! -s "$ASSERTIONS_FILE" ]; then
+            echo "[]" > "$ASSERTIONS_FILE"
+          fi
 
       - name: Generate Report List
         run: |
