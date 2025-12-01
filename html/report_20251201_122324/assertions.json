@@ -1,0 +1,22 @@
+[
+  {
+    "success": true,
+    "endpoint": "login",
+    "message": "Response time < 3000ms"
+  },
+  {
+    "success": true,
+    "endpoint": "create api key",
+    "message": "Response time < 3000ms"
+  },
+  {
+    "success": true,
+    "endpoint": "zone activity",
+    "message": "Response time < 3000ms"
+  },
+  {
+    "success": false,
+    "endpoint": "zone activity",
+    "message": "Response Assertion - FAILED: Test failed: code expected to contain /20/"
+  }
+]
