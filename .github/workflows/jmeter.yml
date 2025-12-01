@@ -537,6 +537,20 @@ jobs:
       # Deploy to GitHub Pages
       # ============================================
       
+      - name: Verify reports before deployment
+        run: |
+          echo "Checking reports directory structure..."
+          ls -la reports/
+          echo "Checking HTML reports..."
+          ls -la reports/html/ || echo "No html directory"
+          echo "Checking for index.html..."
+          if [ -f "reports/index.html" ]; then
+            echo "✅ index.html found"
+          else
+            echo "❌ index.html NOT found"
+            exit 1
+          fi
+      
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
