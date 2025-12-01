@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testResults version="1.2">
+<httpSample t="463" it="0" lt="460" ct="370" ts="1764600768759" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-1" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="78" it="0" lt="77" ct="0" ts="1764600769760" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-1" dt="text" by="1719" sby="288" ng="2" na="2">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="232" it="0" lt="232" ct="150" ts="1764600769684" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-2" dt="text" by="1842" sby="256" ng="2" na="2">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="75" it="0" lt="75" ct="0" ts="1764600769919" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-2" dt="text" by="1719" sby="288" ng="2" na="2">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="147" it="0" lt="147" ct="0" ts="1764600769852" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-1" dt="text" by="15976" sby="333" ng="2" na="2">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="141" it="0" lt="141" ct="0" ts="1764600769996" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-2" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="231" it="0" lt="231" ct="148" ts="1764600770684" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-3" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="75" it="0" lt="75" ct="0" ts="1764600770916" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-3" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="143" it="0" lt="143" ct="0" ts="1764600770993" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-3" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="224" it="0" lt="224" ct="141" ts="1764600771684" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-4" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="74" it="0" lt="74" ct="0" ts="1764600771910" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-4" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="142" it="0" lt="142" ct="0" ts="1764600771986" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-4" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="222" it="0" lt="221" ct="140" ts="1764600772685" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-5" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="74" it="0" lt="74" ct="0" ts="1764600772909" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-5" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="141" it="0" lt="141" ct="0" ts="1764600772985" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-5" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="220" it="0" lt="220" ct="139" ts="1764600773686" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-6" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="74" it="0" lt="74" ct="0" ts="1764600773908" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-6" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="146" it="0" lt="146" ct="0" ts="1764600773984" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-6" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="233" it="0" lt="233" ct="148" ts="1764600774683" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-7" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="78" it="0" lt="78" ct="0" ts="1764600774918" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-7" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="150" it="0" lt="150" ct="0" ts="1764600774999" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-7" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="228" it="0" lt="228" ct="145" ts="1764600775683" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-8" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="77" it="0" lt="77" ct="0" ts="1764600775913" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-8" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="147" it="0" lt="146" ct="0" ts="1764600775992" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-8" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="230" it="0" lt="230" ct="145" ts="1764600776684" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-9" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="77" it="0" lt="77" ct="0" ts="1764600776916" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-9" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="145" it="0" lt="145" ct="0" ts="1764600776995" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-9" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+<httpSample t="218" it="0" lt="218" ct="137" ts="1764600777684" s="true" lb="login" rc="200" rm="OK" tn="zone activity 1-10" dt="text" by="1842" sby="256" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="74" it="0" lt="74" ct="0" ts="1764600777904" s="true" lb="create api key" rc="200" rm="OK" tn="zone activity 1-10" dt="text" by="1719" sby="288" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="139" it="0" lt="139" ct="0" ts="1764600777980" s="true" lb="zone activity" rc="200" rm="OK" tn="zone activity 1-10" dt="text" by="15976" sby="333" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&amp;page=&amp;startDate=2025-11-09&amp;endDate=2025-11-22</java.net.URL>
+</httpSample>
+
+</testResults>
