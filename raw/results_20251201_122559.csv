@@ -1,0 +1,31 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1764571265208,426,login,400,Bad Request,zone activity 1-2,text,false,,1731,271,2,2,https://uat.kwant.ai/api/login%20,422,0,333
+1764571264373,1261,login,400,Bad Request,zone activity 1-1,text,false,,1731,271,2,2,https://uat.kwant.ai/api/login%20,1257,0,1168
+1764571266216,79,create api key,500,Internal Server Error,zone activity 1-2,text,false,,1903,236,3,3,https://uat.kwant.ai/api/apiuser,79,0,0
+1764571266216,80,create api key,500,Internal Server Error,zone activity 1-1,text,false,,1903,236,3,3,https://uat.kwant.ai/api/apiuser,79,0,0
+1764571266310,78,zone activity,500,Internal Server Error,zone activity 1-1,text,false,Test failed: code expected to contain /20/,1681,221,3,3,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,78,0,0
+1764571266311,77,zone activity,500,Internal Server Error,zone activity 1-2,text,false,Test failed: code expected to contain /20/,1681,221,3,3,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,77,0,0
+1764571266210,236,login,400,Bad Request,zone activity 1-3,text,false,,1732,271,1,1,https://uat.kwant.ai/api/login%20,236,0,154
+1764571266448,76,create api key,500,Internal Server Error,zone activity 1-3,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,76,0,0
+1764571266525,74,zone activity,500,Internal Server Error,zone activity 1-3,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,74,0,0
+1764571267208,221,login,400,Bad Request,zone activity 1-4,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,221,0,143
+1764571267430,75,create api key,500,Internal Server Error,zone activity 1-4,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,75,0,0
+1764571267506,72,zone activity,500,Internal Server Error,zone activity 1-4,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,72,0,0
+1764571268208,233,login,400,Bad Request,zone activity 1-5,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,233,0,151
+1764571268443,78,create api key,500,Internal Server Error,zone activity 1-5,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,78,0,0
+1764571268522,78,zone activity,500,Internal Server Error,zone activity 1-5,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,78,0,0
+1764571269208,238,login,400,Bad Request,zone activity 1-6,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,238,0,154
+1764571269447,80,create api key,500,Internal Server Error,zone activity 1-6,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,80,0,0
+1764571269529,79,zone activity,500,Internal Server Error,zone activity 1-6,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,78,0,0
+1764571270207,231,login,400,Bad Request,zone activity 1-7,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,231,0,150
+1764571270440,77,create api key,500,Internal Server Error,zone activity 1-7,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,77,0,0
+1764571270519,77,zone activity,500,Internal Server Error,zone activity 1-7,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,77,0,0
+1764571271208,231,login,400,Bad Request,zone activity 1-8,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,231,0,150
+1764571271441,78,create api key,500,Internal Server Error,zone activity 1-8,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,78,0,0
+1764571271521,76,zone activity,500,Internal Server Error,zone activity 1-8,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,76,0,0
+1764571272206,233,login,400,Bad Request,zone activity 1-9,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,233,0,151
+1764571272440,79,create api key,500,Internal Server Error,zone activity 1-9,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,79,0,0
+1764571272520,77,zone activity,500,Internal Server Error,zone activity 1-9,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,77,0,0
+1764571273207,230,login,400,Bad Request,zone activity 1-10,text,false,,1731,271,1,1,https://uat.kwant.ai/api/login%20,230,0,149
+1764571273438,78,create api key,500,Internal Server Error,zone activity 1-10,text,false,,1903,236,1,1,https://uat.kwant.ai/api/apiuser,78,0,0
+1764571273518,76,zone activity,500,Internal Server Error,zone activity 1-10,text,false,Test failed: code expected to contain /20/,1681,221,1,1,https://uat.kwant.ai/api/open/v2/zoneActivity?size=100&page=&startDate=2025-11-09&endDate=2025-11-22,75,0,0
