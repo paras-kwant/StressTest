@@ -81,24 +81,19 @@ jobs:
           TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
           echo "Running test at Nepal Time: $TIMESTAMP"
 
-          # Run JMeter with XML output format
+          # Run JMeter
           jmeter -n \
             -t tests/load_test_kwant.jmx \
             -l reports/raw/results_$TIMESTAMP.jtl \
             -e -o reports/html/report_$TIMESTAMP \
             -Jemail=${{ secrets.JMETER_EMAIL }} \
             -Jpassword=${{ secrets.JMETER_PASSWORD }} \
-            -Jjmeterengine.force.system.exit=true \
-            -Jjmeter.save.saveservice.output_format=xml \
-            -Jjmeter.save.saveservice.assertion_results_failure_message=true
+            -Jjmeterengine.force.system.exit=true
 
-          # Check file format
-          echo "JTL file preview:"
-          head -20 reports/raw/results_$TIMESTAMP.jtl
-          
           # Fail workflow if any assertions failed
-          if grep -q "success=\"false\"" reports/raw/results_$TIMESTAMP.jtl; then
-            echo "❌ Some assertions failed"
+          FAIL_COUNT=$(grep -c "<failure>true</failure>" reports/raw/results_$TIMESTAMP.jtl || echo 0)
+          if [ "$FAIL_COUNT" -gt 0 ]; then
+            echo "❌ $FAIL_COUNT assertions failed"
             exit 1
           fi
 
@@ -116,80 +111,27 @@ jobs:
           ASSERTIONS_FILE=reports/html/report_$TIMESTAMP/assertions.json
           mkdir -p reports/html/report_$TIMESTAMP
           
-          cat > parse_jtl.py << 'PYEOF'
-          import xml.etree.ElementTree as ET
-          import json
-          import sys
-          
-          try:
-              tree = ET.parse(sys.argv[1])
-              root = tree.getroot()
-              
-              assertions = []
-              
-              # Find all samples (httpSample, sample, etc.)
-              for sample in root.findall('.//*[@lb]'):
-                  label = sample.get('lb', 'Unknown Request')
-                  success = sample.get('s', 'true') == 'true'
-                  response_code = sample.get('rc', 'N/A')
-                  response_time = sample.get('t', 'N/A')
-                  
-                  # Find assertion results within this sample
-                  assertion_results = sample.findall('.//assertionResult')
-                  
-                  if assertion_results:
-                      for assertion in assertion_results:
-                          assertion_name = assertion.find('name')
-                          failure = assertion.find('failure')
-                          error = assertion.find('error')
-                          failure_message = assertion.find('failureMessage')
-                          
-                          is_failure = (failure is not None and failure.text == 'true') or \
-                                      (error is not None and error.text == 'true')
-                          
-                          # Build message
-                          if assertion_name is not None and assertion_name.text:
-                              name = assertion_name.text.strip()
-                          else:
-                              name = "Assertion"
-                          
-                          if is_failure and failure_message is not None and failure_message.text:
-                              message = f"{name}: {failure_message.text.strip()}"
-                          else:
-                              message = f"{name}: Passed"
-                          
-                          assertions.append({
-                              'success': not is_failure,
-                              'endpoint': label,
-                              'message': message
-                          })
-                  else:
-                      # No assertions, show basic request info
-                      status = "Success" if success else "Failed"
-                      assertions.append({
-                          'success': success,
-                          'endpoint': label,
-                          'message': f'Request completed - Status: {response_code}, Time: {response_time}ms'
-                      })
-              
-              print(json.dumps(assertions, indent=2))
-              
-          except Exception as e:
-              print(f"Error parsing JTL: {e}", file=sys.stderr)
-              # Output empty array as fallback
-              print("[]")
-          PYEOF
-          
-          python3 parse_jtl.py "$JTL_FILE" > "$ASSERTIONS_FILE" 2>&1
-          
-          # Debug output
-          echo "Generated assertions.json:"
-          cat "$ASSERTIONS_FILE"
-          
-          # Ensure file exists with valid JSON
-          if [ ! -s "$ASSERTIONS_FILE" ] || ! python3 -m json.tool "$ASSERTIONS_FILE" > /dev/null 2>&1; then
-            echo "[]" > "$ASSERTIONS_FILE"
-          fi
+          echo "[" > $ASSERTIONS_FILE
+          awk '
+            /<sample label="([^"]*)"/ { 
+              match($0, /label="([^"]*)"/, arr)
+              label = arr[1]
+              success=1
+              message=""
+            }
+            /<failure>true/ { success=0 }
+            /<failureMessage>/ { 
+              getline
+              message=$0
+              gsub(/<\/?failureMessage>/, "", message)
+              gsub(/^[ \t]+|[ \t]+$/, "", message)
+            }
+            /<\/sample>/ { 
+              if (message == "") message = "All assertions passed"
+              printf "{\"success\":%s,\"endpoint\":\"%s\",\"message\":\"%s\"},\n", success, label, message
+            }
+          ' $JTL_FILE | sed '$ s/,$//' >> $ASSERTIONS_FILE
+          echo "]" >> $ASSERTIONS_FILE
 
       - name: Generate Report List
         run: |
