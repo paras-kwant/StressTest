@@ -58,7 +58,6 @@
           reportsList.innerHTML='<p style="color:#666;">Reports will appear after first run.</p>';
           return;
         }
-        // Sort numeric timestamps descending (newest first)
         reports.sort((a,b)=>parseInt(b.timestamp.replace(/_/g,'')) - parseInt(a.timestamp.replace(/_/g,'')));
         const last20 = reports.slice(0,20);
         last20.forEach((report,index)=>{
