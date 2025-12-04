@@ -1,0 +1,16 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1764834340042,1450,login,200,OK,zone activity 1-1,text,true,,802,255,2,2,https://qa.kwant.ai/api/login%20,1446,0,1378
+1764834340952,540,login,200,OK,zone activity 1-2,text,true,,802,255,2,2,https://qa.kwant.ai/api/login%20,536,0,467
+1764834341954,111,login,200,OK,zone activity 1-3,text,true,,802,255,3,3,https://qa.kwant.ai/api/login%20,110,0,69
+1764834342055,72,create api key,200,OK,zone activity 1-1,text,true,,680,288,3,3,https://qa.kwant.ai/api/apiuser,72,0,0
+1764834342055,79,create api key,200,OK,zone activity 1-2,text,true,,680,288,3,3,https://qa.kwant.ai/api/apiuser,79,0,0
+1764834342066,81,create api key,200,OK,zone activity 1-3,text,true,,680,288,3,3,https://qa.kwant.ai/api/apiuser,81,0,0
+1764834342149,172,zone activity,200,OK,zone activity 1-3,text,true,,284998,334,3,3,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-11-30&endDate=2025-12-06,98,0,0
+1764834342142,183,zone activity,200,OK,zone activity 1-1,text,true,,284998,334,2,2,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-11-30&endDate=2025-12-06,103,0,0
+1764834342143,190,zone activity,200,OK,zone activity 1-2,text,true,,284974,334,1,1,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-11-30&endDate=2025-12-06,113,0,0
+1764834342953,86,login,200,OK,zone activity 1-4,text,true,,802,255,1,1,https://qa.kwant.ai/api/login%20,86,0,46
+1764834343041,30,create api key,200,OK,zone activity 1-4,text,true,,679,288,1,1,https://qa.kwant.ai/api/apiuser,30,0,0
+1764834343072,144,zone activity,200,OK,zone activity 1-4,text,true,,284958,334,1,1,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-11-30&endDate=2025-12-06,86,0,0
+1764834343951,91,login,200,OK,zone activity 1-5,text,true,,802,255,1,1,https://qa.kwant.ai/api/login%20,91,0,50
+1764834344044,31,create api key,200,OK,zone activity 1-5,text,true,,679,288,1,1,https://qa.kwant.ai/api/apiuser,31,0,0
+1764834344076,149,zone activity,200,OK,zone activity 1-5,text,true,,284958,334,1,1,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-11-30&endDate=2025-12-06,88,0,0
