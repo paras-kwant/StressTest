@@ -1,0 +1,16 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1766119072486,30119,login,500,Internal Server Error,zone activity 1-2,text,false,,711,255,5,5,https://qa.kwant.ai/api/login%20,30119,0,76
+1766119071578,30981,login,500,Internal Server Error,zone activity 1-1,text,false,,711,255,5,5,https://qa.kwant.ai/api/login%20,30977,0,928
+1766119073485,30125,login,500,Internal Server Error,zone activity 1-3,text,false,,711,255,5,5,https://qa.kwant.ai/api/login%20,30125,0,78
+1766119074485,30119,login,500,Internal Server Error,zone activity 1-4,text,false,,711,255,5,5,https://qa.kwant.ai/api/login%20,30119,0,74
+1766119075484,30127,login,500,Internal Server Error,zone activity 1-5,text,false,,711,255,5,5,https://qa.kwant.ai/api/login%20,30127,0,80
+1766119103136,30036,create api key,500,Internal Server Error,zone activity 1-2,text,false,,966,235,5,5,https://qa.kwant.ai/api/apiuser,30036,0,0
+1766119103137,30035,create api key,500,Internal Server Error,zone activity 1-1,text,false,,966,235,5,5,https://qa.kwant.ai/api/apiuser,30035,0,0
+1766119103613,30040,create api key,500,Internal Server Error,zone activity 1-3,text,false,,966,235,5,5,https://qa.kwant.ai/api/apiuser,30040,0,0
+1766119104606,30038,create api key,500,Internal Server Error,zone activity 1-4,text,false,,966,235,5,5,https://qa.kwant.ai/api/apiuser,30038,0,0
+1766119105614,30040,create api key,500,Internal Server Error,zone activity 1-5,text,false,,966,235,5,5,https://qa.kwant.ai/api/apiuser,30040,0,0
+1766119133184,30358,zone activity,500,Internal Server Error,zone activity 1-1,text,false,Test failed: code expected to contain /20/,774,221,5,5,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,30358,0,321
+1766119133184,30364,zone activity,500,Internal Server Error,zone activity 1-2,text,false,Test failed: code expected to contain /20/,774,221,4,4,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,30364,0,325
+1766119133653,30106,zone activity,500,Internal Server Error,zone activity 1-3,text,false,Test failed: code expected to contain /20/,774,221,3,3,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,30106,0,68
+1766119134645,30105,zone activity,500,Internal Server Error,zone activity 1-4,text,false,Test failed: code expected to contain /20/,774,221,2,2,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,30105,0,68
+1766119135655,30114,zone activity,500,Internal Server Error,zone activity 1-5,text,false,Test failed: code expected to contain /20/,774,221,1,1,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,30114,0,74

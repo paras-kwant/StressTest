@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testResults version="1.2">
+<httpSample t="30385" it="0" lt="30381" ct="333" ts="1766119168071" s="false" lb="login" rc="500" rm="Internal Server Error" tn="zone activity 1-1" dt="text" by="711" sby="255" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="30120" it="0" lt="30119" ct="79" ts="1766119168983" s="false" lb="login" rc="500" rm="Internal Server Error" tn="zone activity 1-2" dt="text" by="711" sby="255" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="30128" it="0" lt="30128" ct="80" ts="1766119169982" s="false" lb="login" rc="500" rm="Internal Server Error" tn="zone activity 1-3" dt="text" by="711" sby="255" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="30126" it="0" lt="30126" ct="80" ts="1766119170981" s="false" lb="login" rc="500" rm="Internal Server Error" tn="zone activity 1-4" dt="text" by="711" sby="255" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="30130" it="0" lt="30130" ct="73" ts="1766119171981" s="false" lb="login" rc="500" rm="Internal Server Error" tn="zone activity 1-5" dt="text" by="711" sby="255" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/login%20</java.net.URL>
+</httpSample>
+<httpSample t="30038" it="0" lt="30038" ct="0" ts="1766119199027" s="false" lb="create api key" rc="500" rm="Internal Server Error" tn="zone activity 1-1" dt="text" by="966" sby="235" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="30035" it="0" lt="30035" ct="0" ts="1766119199106" s="false" lb="create api key" rc="500" rm="Internal Server Error" tn="zone activity 1-2" dt="text" by="966" sby="235" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="30041" it="0" lt="30041" ct="0" ts="1766119200114" s="false" lb="create api key" rc="500" rm="Internal Server Error" tn="zone activity 1-3" dt="text" by="966" sby="235" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="30041" it="0" lt="30041" ct="0" ts="1766119201110" s="false" lb="create api key" rc="500" rm="Internal Server Error" tn="zone activity 1-4" dt="text" by="966" sby="235" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="30039" it="0" lt="30039" ct="0" ts="1766119202114" s="false" lb="create api key" rc="500" rm="Internal Server Error" tn="zone activity 1-5" dt="text" by="966" sby="235" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/apiuser</java.net.URL>
+</httpSample>
+<httpSample t="30146" it="0" lt="30146" ct="110" ts="1766119229088" s="false" lb="zone activity" rc="500" rm="Internal Server Error" tn="zone activity 1-1" dt="text" by="774" sby="221" ng="5" na="5">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>Test failed: code expected to contain /20/</failureMessage>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>The operation lasted too long: It took 30,146 milliseconds, but should not have lasted longer than 3,000 milliseconds.</failureMessage>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&amp;page=&amp;startDate=2025-12-01&amp;endDate=2025-12-14</java.net.URL>
+</httpSample>
+<httpSample t="30119" it="0" lt="30119" ct="78" ts="1766119229143" s="false" lb="zone activity" rc="500" rm="Internal Server Error" tn="zone activity 1-2" dt="text" by="774" sby="221" ng="4" na="4">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>Test failed: code expected to contain /20/</failureMessage>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>The operation lasted too long: It took 30,119 milliseconds, but should not have lasted longer than 3,000 milliseconds.</failureMessage>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&amp;page=&amp;startDate=2025-12-01&amp;endDate=2025-12-14</java.net.URL>
+</httpSample>
+<httpSample t="30119" it="0" lt="30119" ct="77" ts="1766119230158" s="false" lb="zone activity" rc="500" rm="Internal Server Error" tn="zone activity 1-3" dt="text" by="774" sby="221" ng="3" na="3">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>Test failed: code expected to contain /20/</failureMessage>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>The operation lasted too long: It took 30,119 milliseconds, but should not have lasted longer than 3,000 milliseconds.</failureMessage>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&amp;page=&amp;startDate=2025-12-01&amp;endDate=2025-12-14</java.net.URL>
+</httpSample>
+<httpSample t="30115" it="0" lt="30115" ct="74" ts="1766119231153" s="false" lb="zone activity" rc="500" rm="Internal Server Error" tn="zone activity 1-4" dt="text" by="774" sby="221" ng="2" na="2">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>Test failed: code expected to contain /20/</failureMessage>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>The operation lasted too long: It took 30,115 milliseconds, but should not have lasted longer than 3,000 milliseconds.</failureMessage>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&amp;page=&amp;startDate=2025-12-01&amp;endDate=2025-12-14</java.net.URL>
+</httpSample>
+<httpSample t="30098" it="0" lt="30098" ct="62" ts="1766119232155" s="false" lb="zone activity" rc="500" rm="Internal Server Error" tn="zone activity 1-5" dt="text" by="774" sby="221" ng="1" na="1">
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>false</failure>
+    <error>false</error>
+  </assertionResult>
+  <assertionResult>
+    <name>Response Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>Test failed: code expected to contain /20/</failureMessage>
+  </assertionResult>
+  <assertionResult>
+    <name>Duration Assertion</name>
+    <failure>true</failure>
+    <error>false</error>
+    <failureMessage>The operation lasted too long: It took 30,098 milliseconds, but should not have lasted longer than 3,000 milliseconds.</failureMessage>
+  </assertionResult>
+  <java.net.URL>https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&amp;page=&amp;startDate=2025-12-01&amp;endDate=2025-12-14</java.net.URL>
+</httpSample>
+
+</testResults>
