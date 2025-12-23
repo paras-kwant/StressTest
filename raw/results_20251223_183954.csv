@@ -1,0 +1,16 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1766494499760,1152,login,200,OK,zone activity 1-1,text,true,,802,255,2,2,https://qa.kwant.ai/api/login%20,1148,0,1083
+1766494500648,265,login,200,OK,zone activity 1-2,text,true,,802,255,2,2,https://qa.kwant.ai/api/login%20,261,0,196
+1766494501563,55,create api key,200,OK,zone activity 1-2,text,true,,680,288,2,2,https://qa.kwant.ai/api/apiuser,55,0,0
+1766494501568,50,create api key,200,OK,zone activity 1-1,text,true,,680,288,2,2,https://qa.kwant.ai/api/apiuser,50,0,0
+1766494501648,58,login,200,OK,zone activity 1-3,text,true,,802,255,3,3,https://qa.kwant.ai/api/login%20,58,0,30
+1766494501708,18,create api key,200,OK,zone activity 1-3,text,true,,679,288,3,3,https://qa.kwant.ai/api/apiuser,18,0,0
+1766494502647,59,login,200,OK,zone activity 1-4,text,true,,802,255,4,4,https://qa.kwant.ai/api/login%20,59,0,24
+1766494502708,26,create api key,200,OK,zone activity 1-4,text,true,,679,288,4,4,https://qa.kwant.ai/api/apiuser,26,0,0
+1766494503648,52,login,200,OK,zone activity 1-5,text,true,,802,255,5,5,https://qa.kwant.ai/api/login%20,51,0,22
+1766494503701,15,create api key,200,OK,zone activity 1-5,text,true,,679,288,5,5,https://qa.kwant.ai/api/apiuser,15,0,0
+1766494501633,5623,zone activity,200,OK,zone activity 1-1,text,false,"The operation lasted too long: It took 5,623 milliseconds, but should not have lasted longer than 3,000 milliseconds.",284998,334,5,5,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,5603,0,0
+1766494501727,5528,zone activity,200,OK,zone activity 1-3,text,false,"The operation lasted too long: It took 5,528 milliseconds, but should not have lasted longer than 3,000 milliseconds.",284944,334,5,5,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,5502,0,0
+1766494503717,3542,zone activity,200,OK,zone activity 1-5,text,false,"The operation lasted too long: It took 3,542 milliseconds, but should not have lasted longer than 3,000 milliseconds.",284968,334,5,5,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,3516,0,0
+1766494502735,4540,zone activity,200,OK,zone activity 1-4,text,false,"The operation lasted too long: It took 4,540 milliseconds, but should not have lasted longer than 3,000 milliseconds.",284946,334,2,2,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,4513,0,0
+1766494501633,5647,zone activity,200,OK,zone activity 1-2,text,false,"The operation lasted too long: It took 5,647 milliseconds, but should not have lasted longer than 3,000 milliseconds.",284904,334,1,1,https://qa.kwant.ai/api/open/v2/zoneActivity?size=9999&page=&startDate=2025-12-01&endDate=2025-12-14,5628,0,0
