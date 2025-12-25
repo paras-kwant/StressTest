@@ -2,7 +2,7 @@ name: JMeter Zone Activity Monitor
 
 on:
   schedule:
-    - cron: "*/35 * * * *"
+    #- cron: "*/35 * * * *"
   workflow_dispatch:
 
 jobs:
